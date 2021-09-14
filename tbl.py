@@ -9,7 +9,7 @@ import psycopg2
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cursor = conn.cursor()
-cursor.execute('''create table if not exists main (id INT PRIMARY KEY NOT NULL SERIAL,
+cursor.execute('''create table if not exists main (id SERIAL PRIMARY KEY,
                   datetime INT NOT NULL, desc STR, author STR);''')
 conn.commit()
 cursor.close()
