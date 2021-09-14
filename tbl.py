@@ -3,15 +3,28 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 import random
 from spbpu_ruz import getExtRuz
 import datetime
-import sqlite3
+import os
+import psycopg2
+
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+cursor = conn.cursor()
+cursor.execute('''create table if not exists main (id INT PRIMARY KEY NOT NULL SERIAL,
+                  datetime INT NOT NULL, desc STR, author STR);''')
+conn.commit()
+cursor.close()
+conn.close()
+
 
 def workWithBD(command: str):
     try:
-        conn = sqlite3.connect("C:/Users/user/Desktop/z.db")
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cursor = conn.cursor()
         cursor.execute(command)
         conn.commit()
-        return cursor.fetchall()
+        c = cursor.fetchall()
+        cursor.close()
+        conn.close()
     except Exception as e:
         return e
 
