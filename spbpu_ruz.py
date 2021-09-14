@@ -21,10 +21,10 @@ def getRuz(date=''):
     s = requests.Session()
     with open('111.htm', 'w') as data:
         x = s.get('https://ruz.spbstu.ru/faculty/94/groups/34295' + date)
-        data.write(x.content.decode('cp1251', errors='replace'))
+        data.write(x.content.decode('utf8', errors='replace'))
 
     with open('111.htm', 'r', encoding='cp1251') as data:
-        x = ''.join(data.readlines()).encode('cp1251', errors='replace').decode('utf8', errors='replace')
+        x = ''.join(data.readlines())
     ruz = []
     soup = BeautifulSoup(x, 'html.parser')
     week = soup.find_all('li', attrs={'class': 'schedule__day'})
