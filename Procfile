@@ -1,1 +1,1 @@
-web: python3 tbl.py
+bot: python3 tbl.py
