@@ -10,7 +10,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cursor = conn.cursor()
 cursor.execute('''create table if not exists main (id SERIAL PRIMARY KEY,
-                  datetime INT NOT NULL, desc VARCHAR (255), author VARCHAR (255));''')
+                  datetime INT NOT NULL, descript STR, author STR);''')
 conn.commit()
 cursor.close()
 conn.close()
@@ -89,7 +89,7 @@ for event in longpoll.listen():
                 except Exception as e:
                     write_msg(event.user_id, "Неверно указана дата (гггг-мм-дд)\nБудет использована завтрашняя дата\n❗ " + str(e))
                     tmp = int((datetime.datetime.now() + datetime.timedelta(days=1)).timestamp() + 64800)
-                tmp = workWithBD(f'INSERT INTO main (datetime, desc, author) VALUES({tmp},' +\
+                tmp = workWithBD(f'INSERT INTO main (datetime, descript, author) VALUES({tmp},' +\
                     f' \"{" ".join(d[2:])}\", \"{event.user_id}\")')
                 if type(tmp) == list:
                     write_msg(event.user_id, "✔Успех")
