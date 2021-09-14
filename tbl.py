@@ -10,7 +10,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cursor = conn.cursor()
 cursor.execute('''create table if not exists main (id SERIAL PRIMARY KEY,
-                  datetime INT NOT NULL, descript STR, author STR);''')
+                  datetime INT NOT NULL, descript VARCHAR (255), author VARCHAR (255));''')
 conn.commit()
 cursor.close()
 conn.close()
