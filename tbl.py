@@ -92,7 +92,7 @@ for event in longpoll.listen():
                     tmp = int((datetime.datetime.now() + datetime.timedelta(days=1)).timestamp() + 64800)
                 tmp = workWithBD(f'INSERT INTO main (datetime, descript, author) VALUES({tmp},' +\
                     f' \"{" ".join(d[2:])}\", \"{event.user_id}\")')
-                if type(tmp) == list:
+                if type(tmp) == NoneType:
                     write_msg(event.user_id, "✔Успех")
                 elif type(tmp) == Exception:
                     write_msg(event.user_id, '❗' + str(tmp))
