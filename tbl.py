@@ -22,7 +22,7 @@ def workWithBD(command: str):
         cursor = conn.cursor()
         cursor.execute(command)
         conn.commit()
-        c = cursor.fetchall()
+        c = cursor.fetchall().copy()
         cursor.close()
         conn.close()
     except Exception as e:
