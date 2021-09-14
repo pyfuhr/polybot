@@ -27,6 +27,7 @@ def workWithBD(command: str):
         conn.close()
     except Exception as e:
         return e
+    return c
 
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': random.randint(0, 65536)})
