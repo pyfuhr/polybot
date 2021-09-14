@@ -24,7 +24,7 @@ def getRuz(date=''):
         data.write(x.content.decode('cp1251', errors='ignore'))
 
     with open('111.htm', 'r', encoding='cp1251') as data:
-        x = ''.join(data.readlines()).encode('cp1251').decode('utf8', errors='ignore')
+        x = ''.join(data.readlines()).encode('cp1251', errors='ignore').decode('utf8', errors='ignore')
     ruz = []
     soup = BeautifulSoup(x, 'html.parser')
     week = soup.find_all('li', attrs={'class': 'schedule__day'})
