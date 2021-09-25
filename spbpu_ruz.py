@@ -45,10 +45,12 @@ def getRuz(date=''):
                     if less.name[0].islower():
                         less.name = 'И' + less.name
                     less.time = tmp[1].contents[0] + tmp[2].contents[0] + tmp[3].contents[0]
-                    
-                less.type = attrsoup.find('div', attrs={'class': 'lesson__type'}).contents[0]
-                less.groups = [i[2:-4] for i in re.findall('\">[0-9\/]{13}<\/a>', str(attrsoup.find_all('span', attrs={'class': 'lesson__group'})), re.M|re.I)]
-                less.teacher = re.search('\">[А-Яа-я\-A-Za-z\s]+<\/span><\/a><\/div>', str(attrsoup.find('div', attrs={'class': 'lesson__teachers'}).contents[0])).group()[2:-17]
+                try:    
+                    less.type = attrsoup.find('div', attrs={'class': 'lesson__type'}).contents[0]
+                    less.groups = [i[2:-4] for i in re.findall('\">[0-9\/]{13}<\/a>', str(attrsoup.find_all('span', attrs={'class': 'lesson__group'})), re.M|re.I)]
+                    less.teacher = re.search('\">[А-Яа-я\-A-Za-z\s]+<\/span><\/a><\/div>', str(attrsoup.find('div', attrs={'class': 'lesson__teachers'}).contents[0])).group()[2:-17]
+                except:
+                    pass
                 spansoup = BeautifulSoup(str(attrsoup.find('div', attrs={'class': 'lesson__places'}).contents[0]), 'html.parser')
                 span = spansoup.find_all('span')
                 less.place = span[1].contents[0] + ', ' + span[6].contents[0] + span[7].contents[0]
