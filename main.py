@@ -5,6 +5,7 @@ from spbpu_ruz import getExtRuz
 import datetime
 import os
 import psycopg2
+from priv_key import TOKEN_VK
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -32,7 +33,7 @@ def workWithBD(command: str):
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'random_id': random.randint(0, 65536)})
 
-token = '4fd114fff83dae203a5680c865dd86639291c231b74444c20ddd451216e985d8268c79b142c05b811fd92'
+token = TOKEN_VK
 vk = vk_api.VkApi(token=token)
 longpoll = VkLongPoll(vk)
 
